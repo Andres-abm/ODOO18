@@ -1,0 +1,48 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+
+    <record model="ir.ui.view" id="incidence_list">
+      <field name="name">Incidence list</field>
+      <field name="model">support.incidence</field>
+      <field name="arch" type="xml">
+        <list>
+          <field name="title"/>
+          <field name="description"/>
+          <field name="priority"/>
+          <field name="urgent"/>
+          <field name="location"/>
+          <field name="closed"/>
+          <field name="create_date"/>
+          <field name="modify_date"/>
+        </list>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="incidence_action_window">
+      <field name="name">Show list incidence</field>
+      <field name="res_model">support.incidence</field>
+      <field name="view_mode">list,form</field>
+    </record>
+
+
+    <!-- Top menu item -->
+
+    <menuitem name="SGE Support" id="support.menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Incidencias" id="support_incidence" parent="support.menu_root"/>
+  
+
+    <!-- actions -->
+
+    <menuitem name="Mostrar lista" id="support_incidence_list" parent="support_incidence"
+              action="incidence_action_window"/>
+
+  </data>
+</odoo>
