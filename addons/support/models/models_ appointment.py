@@ -16,15 +16,11 @@ class Appointment(models.Model):
           ('0', '9:00'),('1', '9:30'),('2', '10:00'),('3', '10:30'),('4', '11:00'),('5', '11:30'),('6', '12:00'),('7', '12:30'),('8', '13:00') 
      ], string='Hora de la Cita', required=True,help='Hora de la cita en intervalos de 30 minutos')
 
-     name = fields.Char('Nombre', required=True,)
+     name = fields.Char('Nombre', required=True, help='Nombre de la persona que va solicitar la cita', required='True')
 
      mail = fields.Char('E-mail', required=True)
 
      phone = fields.Char('Titulo', required=True)
-
-
-
-
 
      description = fields.Char('Descripcion', required=True)
 

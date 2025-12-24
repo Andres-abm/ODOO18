@@ -16,6 +16,7 @@
           <field name="closed"/>
           <field name="create_date"/>
           <field name="modify_date"/>
+          <field name="service_id"/>
         </list>
       </field>
     </record>
