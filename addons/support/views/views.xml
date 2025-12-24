@@ -4,18 +4,15 @@
 
 
     <record model="ir.ui.view" id="incidence_list">
-      <field name="name">Incidence list</field>
-      <field name="model">support.incidence</field>
+      <field name="name">Appointment List</field>
+      <field name="model">support.appointment</field>
       <field name="arch" type="xml">
         <list>
-          <field name="title"/>
+          <field name="name"/>
+          <field name="mail"/>
+          <field name="phone"/>
           <field name="description"/>
-          <field name="priority"/>
-          <field name="urgent"/>
-          <field name="location"/>
-          <field name="closed"/>
-          <field name="create_date"/>
-          <field name="modify_date"/>
+          <field name="service_id"/>
         </list>
       </field>
     </record>
