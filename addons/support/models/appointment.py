@@ -24,6 +24,12 @@ class Appointment(models.Model):
 
      description = fields.Char('Descripcion', required=True)
 
+     service_id = fields.Many2one(
+         string='Servicio',
+         comodel_name='model.service',
+         ondelete='restrict',
+     )
+
 
 # class personalized_addon(models.Model):
 #     _name = 'personalized_addon.personalized_addon'

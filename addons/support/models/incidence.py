@@ -49,11 +49,7 @@ class Incidence(models.Model):
           default=fields.Datetime.now
           )
 
-     service_id = fields.Many2one(
-         string='Servicio',
-         comodel_name='model.service',
-         ondelete='restrict',
-     )
+
 #     name = fields.Char()
 #     value = fields.Integer()
 #     value2 = fields.Float(compute="_value_pc", store=True)
