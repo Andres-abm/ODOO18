@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import . import models_appointment
-import . import models_incidence
-import . import models_service
+from . import models_appointment
+from . import models_incidence
+from . import models_service
