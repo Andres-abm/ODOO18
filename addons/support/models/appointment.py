@@ -24,7 +24,7 @@ class Appointment(models.Model):
 
      description = fields.Char('Descripcion', required=True)
 
-     service_id = fields.Many2one(
+     service_ids = fields.Many2one(
          string='Servicio',
          comodel_name='model.service',
          ondelete='restrict',
