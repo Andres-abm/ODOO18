@@ -29,6 +29,7 @@ services:
       - PASSWORD=odoo
     volumes:
       - ./enterprise-addons:/mnt/enterprise-addons # Es común ver una carpeta para enterprise
+      - ./jorels-odoo-addons:/mnt/extra-addons
       - ./addons:/mnt/extra-addons
       - ./odoo.conf:/etc/odoo/odoo.conf
       - odoo-data:/var/lib/odoo
