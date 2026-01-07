@@ -26,7 +26,7 @@ class Appointment(models.Model):
 
      service_ids = fields.Many2one(
          string='Servicio',
-         comodel_name='model.service',
+         comodel_name='support.service',
          ondelete='restrict',
      )
 
