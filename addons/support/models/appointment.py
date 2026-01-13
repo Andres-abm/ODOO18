@@ -29,6 +29,7 @@ class Appointment(models.Model):
          comodel_name='support.service',
          ondelete='restrict',
      )
+     
 
 
 # class personalized_addon(models.Model):
