@@ -10,7 +10,10 @@ class Service(models.Model):
 
      description = fields.Char('Descripcion', required=True)
 
-appointment_ids= fields.One2many('support.appointment',service_ids
+appointment_ids= fields.One2many(
+    string='appointment',
+    comodel_name='support.appointment',
+    inverse_name='inverse_field',
 )
 
 
