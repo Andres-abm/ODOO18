@@ -7,13 +7,13 @@
       <field name="name">Appointment List</field>
       <field name="model">support.appointment</field>
       <field name="arch" type="xml">
-        <list>
+        <tree>
           <field name="name"/>
           <field name="mail"/>
           <field name="phone"/>
           <field name="description"/>
           <field name="service_ids"/>
-        </list>
+        </tree>
       </field>
     </record>
 
