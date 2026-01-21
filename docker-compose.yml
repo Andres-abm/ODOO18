@@ -44,10 +44,10 @@ services:
       - ./addons:/mnt/extra-addons
       - ./odoo.conf:/etc/odoo/odoo.conf
       - odoo-data:/var/lib/odoo
-    deploy:
-      resources:
-        limits:
-          memory: 1400M # Evita que Odoo consuma toda la RAM de la VM
+    # deploy:
+    #   resources:
+    #     limits:
+    #       memory: 1400M # Evita que Odoo consuma toda la RAM de la VM
     logging: *default-logging
     restart: always
 
