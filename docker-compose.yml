@@ -2,7 +2,7 @@ version: '3.8' # La mayoría usa versiones 3.x, a menudo más antiguas como 3.1 
 
 services:
   db:
-    image: postgres:15 # La versión de PostgreSQL también se especifica
+    image: postgres:15-alpine # La versión de PostgreSQL también se especifica
     container_name: odoo18-db
     environment:
       - POSTGRES_USER=odoo
@@ -33,6 +33,7 @@ services:
       - db
     ports:
       - "8069:8069"
+      - "8072:8072" # Puerto para Longpolling
     environment:
       - HOST=db
       - USER=odoo
@@ -48,16 +49,12 @@ services:
         limits:
           memory: 1400M # Evita que Odoo consuma toda la RAM de la VM
     logging: *default-logging
-    networks:
-      - odoo-network
     restart: always
 
 volumes:
   odoo-db-data:
   odoo-data:
 
-networks:
-  odoo-network:
     # A veces, la configuración se pasa directamente aquí en lugar de en un archivo .conf
     # command: -- --db_host=db --db_user=odoo --db_password=myodoo --addons-path=/mnt/extra-addons,/mnt/enterprise-addons
     
