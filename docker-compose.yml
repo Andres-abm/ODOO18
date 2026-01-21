@@ -9,8 +9,8 @@ services:
       - POSTGRES_PASSWORD=odoo # Contraseña directamente en el archivo
       - POSTGRES_DB=postgres
     command: >
-      postgres -c shared_buffers=256MB 
-               -c effective_cache_size=768MB 
+      postgres -c shared_buffers=128MB 
+               -c effective_cache_size=512MB 
                -c work_mem=16MB 
                -c max_connections=100
     logging: &default-logging
