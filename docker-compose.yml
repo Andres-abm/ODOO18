@@ -9,10 +9,11 @@ services:
       - POSTGRES_PASSWORD=odoo # Contraseña directamente en el archivo
       - POSTGRES_DB=postgres
     command: >
-      postgres -c shared_buffers=128MB 
-               -c effective_cache_size=512MB 
-               -c work_mem=16MB 
-               -c max_connections=100
+      postgres -c shared_buffers=64MB 
+               -c effective_cache_size=256MB 
+               -c work_mem=4MB 
+               -c max_connections=20
+               -c fsync=off
     logging: &default-logging
       driver: "json-file"
       options:
@@ -44,10 +45,10 @@ services:
       - ./addons:/mnt/extra-addons
       - ./odoo.conf:/etc/odoo/odoo.conf
       - odoo-data:/var/lib/odoo
-    # deploy:
-    #   resources:
-    #     limits:
-    #       memory: 1400M # Evita que Odoo consuma toda la RAM de la VM
+    deploy:
+       resources:
+         limits:
+           memory: 800M # Evita que Odoo consuma toda la RAM de la VM
     logging: *default-logging
     restart: always
 
