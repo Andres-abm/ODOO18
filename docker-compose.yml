@@ -45,6 +45,8 @@ services:
       - ./addons:/mnt/extra-addons
       - ./odoo.conf:/etc/odoo/odoo.conf
       - odoo-data:/var/lib/odoo
+    networks:
+      - odoo-network
     deploy:
        resources:
          limits:
@@ -57,7 +59,6 @@ volumes:
   odoo-data:
 networks:
   odoo-network:
-    driver: bridge
 
     # A veces, la configuración se pasa directamente aquí en lugar de en un archivo .conf
     # command: -- --db_host=db --db_user=odoo --db_password=myodoo --addons-path=/mnt/extra-addons,/mnt/enterprise-addons
