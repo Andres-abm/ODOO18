@@ -2,63 +2,64 @@
 
 import { SwitchCompanyMenu } from "@web/webclient/switch_company_menu/switch_company_menu";
 import { patch } from "@web/core/utils/patch";
-import { useService } from "@web/core/utils/hooks";
 import { session } from "@web/session";
+import { registry } from "@web/core/registry";
+
+let allowMultiCompany = null;
+let isCheckingPermission = false;
 
 patch(SwitchCompanyMenu.prototype, {
-    setup() {
-        super.setup(...arguments);
-        this.orm = useService("orm");
-        this.notification = useService("notification");
-        this.allowMultiCompany = null;
-    },
-
-    async setCompanies(companyIds) {
-        // Get user restriction info if not loaded yet
-        if (this.allowMultiCompany === null) {
+    
+    async logIntoCompany(companyId) {
+        // Load permission if not loaded yet
+        if (allowMultiCompany === null && !isCheckingPermission) {
+            isCheckingPermission = true;
             try {
-                const userInfo = await this.orm.call(
+                const result = await this.orm.call(
                     "res.users",
                     "get_user_company_restriction",
                     []
                 );
-                this.allowMultiCompany = userInfo.allow_multi_company;
+                allowMultiCompany = result.allow_multi_company;
             } catch (error) {
-                console.error("Error getting user company restriction:", error);
-                this.allowMultiCompany = true; // Default to allowing if error
+                console.error("Error checking company restriction:", error);
+                allowMultiCompany = true; // Default to allow on error
             }
+            isCheckingPermission = false;
         }
 
         // If user doesn't have multi-company permission
-        if (!this.allowMultiCompany) {
+        if (allowMultiCompany === false) {
             const currentCompanies = this.companyService.activeCompanyIds;
+            const isCompanyActive = currentCompanies.includes(companyId);
             
-            // If trying to select more than one company
-            if (companyIds.length > 1) {
+            // If trying to add a second company (company not active and already have one)
+            if (!isCompanyActive && currentCompanies.length >= 1) {
                 this.notification.add(
-                    "You can only select one company at a time.",
+                    "Solo puedes seleccionar una empresa a la vez. Por favor, deselecciona la empresa actual primero.",
                     {
                         type: "warning",
-                        title: "Single Company Restriction",
+                        title: "Restricción de Empresa Única",
                     }
                 );
-                return; // Prevent the change
+                return; // Block the action
             }
             
-            // If trying to deselect all companies
-            if (companyIds.length === 0) {
+            // If trying to deselect the only company
+            if (isCompanyActive && currentCompanies.length === 1) {
                 this.notification.add(
-                    "You must have at least one company selected.",
+                    "Debes tener al menos una empresa seleccionada.",
                     {
                         type: "warning",
-                        title: "Company Required",
+                        title: "Empresa Requerida",
                     }
                 );
-                return; // Prevent the change
+                return; // Block the action
             }
         }
 
-        // Proceed with normal behavior if allowed
-        return super.setCompanies(...arguments);
+        // Proceed with normal behavior
+        return super.logIntoCompany(companyId);
     },
 });
+
