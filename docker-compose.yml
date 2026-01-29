@@ -8,17 +8,6 @@ services:
       - POSTGRES_USER=odoo
       - POSTGRES_PASSWORD=odoo # Contraseña directamente en el archivo
       - POSTGRES_DB=postgres
-    command: >
-      postgres -c shared_buffers=64MB 
-               -c effective_cache_size=256MB 
-               -c work_mem=4MB 
-               -c max_connections=20
-               -c fsync=off
-    logging: &default-logging
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
     volumes:
       # El mapeo directo a una carpeta local es el método más común que encontrarás
       - ./odoo-db-data:/var/lib/postgresql/data
@@ -46,17 +35,12 @@ services:
       - odoo-data:/var/lib/odoo
     networks:
       - odoo-network
-    deploy:
-       resources:
-         limits:
-           memory: 800M # Evita que Odoo consuma toda la RAM de la VM
-    logging: *default-logging
     restart: always
 
 volumes:
   odoo-db-data:
   odoo-data:
-  
+
 networks:
   odoo-network:
 
